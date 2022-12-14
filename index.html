@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Advices Here!</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    @font-face {
+        font-family: 'Roboto';
+        src: url(Roboto-Light.ttf);
+    }
+
+    @keyframes slide {
+        from {
+            margin-left: 0;
+        }
+
+        to {
+            margin-left: 50px;
+        }
+    }
+
+    body {
+        background-color: #d7dedc;
+    }
+
+    h1 {
+        font-family: 'Roboto';
+        font-weight: lighter;
+        margin-left: 50px;
+        margin-top: 15px;
+    }
+
+    h2,
+    h3,
+    button,
+    p {
+        font-family: 'Calibri';
+        margin-left: 50px;
+        margin-top: 30px;
+    }
+
+    button {
+        
+        padding-right: 10px;
+        padding-left: 10px;
+        color: black;
+        background-color: rgb(243, 131, 90);
+        font-weight: bolder;
+        font-size: 20px;
+        border-radius: 20px;
+        height: 40px;
+        transition: all 0.5s;
+       
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    
+
+    .before {
+        color: rgb(177, 165, 165);
+        font-size: 18px;
+    }
+
+    .after {
+        animation: slide 1.5s;
+        font-size: 30px;
+    }
+
+    img {
+        height: 100px;
+        width: auto;
+    }
+
+    h5 {
+        color: white;
+
+    }
+
+    .logo {
+        height: 25px;
+        width: auto;
+        padding-right: 20px;
+        transition: all 0.5s;
+    }
+
+    .logo:hover {
+        transform: scale(1.2);
+    }
+
+    .info {
+        height: 25px;
+        width: auto;
+        padding-right: 20px;
+        transition: all 0.5s;
+    }
+
+    .info:hover {
+        transform: scale(1.2);
+    }
+
+
+    .git {
+        height: 25px;
+        width: auto;
+        padding-right: 20px;
+        transition: all 0.5s;
+    }
+
+    .git:hover {
+        transform: scale(1.2);
+    }
+
+
+    .navbar-toggler {
+        position: relative;
+        bottom: 14px;
+    }
+
+    a { 
+        color: white;
+        transition: all 0.5s;
+    }
+
+    a:hover{ 
+        color: rgb(198, 185, 247) ;
+    }
+
+    .about { 
+        color: rgb(184, 184, 184);
+        font-family: 'Roboto';
+    }
+</style>
+
+<body>
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+                <h5 class="text-white h4"><img class="git" src="github.png"><a
+                        href="https://github.com/vickbulba">https://github.com/vickbulba</a></h5>
+                <h5 class="text-white h4"><img class="logo"
+                        src="linkedin.png"><a href="https://www.linkedin.com/in/victorbulbarelli/">https://www.linkedin.com/in/victorbulbarelli/</a></h5>
+                <span class="text-muted"><img class="info" src="info.png">This is my first project consuming an API. I
+                    used the AdviceSlip API which provides the user random advices.<br>Technologies used : JavaScript,
+                    HTML, CSS (style and basic animations) and Bootstrap.</span>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <h1 class="about">README</h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+
+    <h1>Advices generator<img src="discussion.png">
+        <h3>This advice generator gives out over 10 million pieces of advice every year.</h3>
+        <h2>How to use it</h2>
+        <p class="instructions">Click in the button bellow and our generator will give you random advices. The generator
+            has a 2 second cooldown and will give you a new advice since this cooldown is over.</p>
+        <button id="btn" onclick="getAdvice()">Click here and get your advice</button>
+        <div id="conselho">
+            <p class="before"><i>Your advice will be shown here</i></p>
+        </div>
+
+
+
+        <script>
+
+
+
+            async function getAdvice() {
+                let url = await `https://api.adviceslip.com/advice`
+                fetch(url).then(function (response) {
+                    response.json().then(function (data) {
+                        mostrarResultado(data)
+
+                        console.log(data)
+                    })
+                })
+
+
+            }
+
+            // função para mostrar o resultado da API no HTML, div id conselho
+            function mostrarResultado(dados) {
+
+                let conselho = document.querySelector('#conselho');
+                if (dados.slip) conselho.innerHTML = `<p class="after">" ${dados.slip.advice}"</p>`;
+            }
+
+
+
+        </script>
+
+        <!-- bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
